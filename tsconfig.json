@@ -7,16 +7,13 @@
   },
   "files": [
     "src/main.tsx",
-    "typings/bluebird/bluebird.d.ts",
-    "typings/classnames/classnames.d.ts",
-    "typings/es6-promise/es6-promise.d.ts",
-    "typings/history/history.d.ts",
-    "typings/lodash/lodash.d.ts",
-    "typings/material-ui/material-ui.d.ts",
-    "typings/react/react.d.ts",
-    "typings/react-bootstrap/react-bootstrap.d.ts",
-    "typings/react-dom/react-dom.d.ts",
-    "typings/react-router/react-router.d.ts"
+    "typings/globals/history/index.d.ts",
+    "typings/globals/react/index.d.ts",
+    "typings/globals/react-dom/index.d.ts",
+    "typings/globals/react-router/index.d.ts",
+    "typings/globals/flux/index.d.ts",
+    "typings/globals/fbemitter/index.d.ts",
+    "typings/globals/immutable/index.d.ts"
   ],
   "filesGlob": [
     "src/**/*.tsx",

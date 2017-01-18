@@ -44,3 +44,8 @@ body {
 .footer .row div {
     padding: 10px 0px 0px 0px;
 }
+
+a.active {
+    color: #000000 !important;
+    text-decoration: underline !important;
+}
