@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "jsx": "react"
+  },
+  "files": [
+    "src/main.tsx",
+    "src/main.app.service.ts",
+    "src/auth/auth.app.service.ts",
+    "src/auth/ui/auth.component.tsx",
+    "src/auth/auth.interceptor.ts",
+    "src/auth/auth.model.ts",
+    "src/auth/auth.service.ts",
+    "src/auth/auth.interface.ts",
+    "src/common/observable-factory.ts",
+    "src/common/loading/loading.component.tsx",
+    "src/common/loading/loading.interceptor.ts",
+    "typings/axios/axios.d.ts",
+    "typings/auth0/auth0.d.ts",
+    "typings/auth0.lock/auth0.lock.d.ts",
+    "typings/bluebird/bluebird.d.ts",
+    "typings/classnames/classnames.d.ts",
+    "typings/es6-promise/es6-promise.d.ts",
+    "typings/history/history.d.ts",
+    "typings/lodash/lodash.d.ts",
+    "typings/material-ui/material-ui.d.ts",
+    "typings/react/react.d.ts",
+    "typings/react-bootstrap/react-bootstrap.d.ts",
+    "typings/react-dom/react-dom.d.ts",
+    "typings/react-router/react-router.d.ts",
+    "typings/uuid/uuid.d.ts"
+  ],
+  "filesGlob": [
+    "src/**/*.tsx",
+    "src/**/*.ts",
+    "typings/**/*d.ts"
+  ],
+  "exclude": []
+}
