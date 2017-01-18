@@ -4,7 +4,7 @@ import './main.css';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Router, Route, Redirect, IndexRoute } from 'react-router';
+// import { Router, Route, Redirect, IndexRoute } from 'react-router';
 
 
 export default class App extends React.Component<{}, {}> {
@@ -20,7 +20,6 @@ export default class App extends React.Component<{}, {}> {
 			</div>
 		);
 	}
-
 }
 
 ReactDOM.render(<App />, document.getElementById('root'))

@@ -28,7 +28,7 @@
     "react-addons-update": "0.14.2",
     "react-bootstrap": "0.27.2",
     "react-dom": "0.14.2",
-    "react-router": "1.0.3",
+    "react-router": "*",
     "react-tap-event-plugin": "0.2.0",
     "uuid": "2.0.1"
   },
