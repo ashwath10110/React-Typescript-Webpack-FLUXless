@@ -13,7 +13,8 @@
     "typings/globals/react-router/index.d.ts",
     "typings/globals/flux/index.d.ts",
     "typings/globals/fbemitter/index.d.ts",
-    "typings/globals/immutable/index.d.ts"
+    "typings/globals/immutable/index.d.ts",
+    "typings/modules/superagent/index.d.ts"
   ],
   "filesGlob": [
     "src/**/*.tsx",

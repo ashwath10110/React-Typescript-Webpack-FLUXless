@@ -9,8 +9,8 @@ import browserHistory from './browserHistory';
 
 export default class Main extends React.Component<any, any> {
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 	}
 
 	render() {
@@ -44,10 +44,3 @@ ReactDOM.render(
 	</Router>,
 	document.getElementById('root')
 );
-
-
-export interface IAuth {
-	displayName: string
-}
-
-// <Route path="/" component={Home}/>
