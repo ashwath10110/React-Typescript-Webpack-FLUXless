@@ -1,18 +1,15 @@
-var minimist = require('minimist');
-var connect = require('connect');
-var serveStatic = require('serve-static');
+var path = require('path');
+var http = require('http');
+var express = require('express');
+var proxy = require('express-http-proxy');
 
+var app = express();
 
-var PORT = 8082;
-var TARGET_PATH_MAPPING = {
-    BUILD: './build',
-    DIST: './dist'
-};
+app.use(express.static(path.join(__dirname, 'build')));
+app.use('/twitter', proxy('twitter.com'));
 
-var TARGET = minimist(process.argv.slice(2)).TARGET || 'BUILD';
+app.use('/api', proxy('twitter.com'));
 
-connect()
-    .use(serveStatic(TARGET_PATH_MAPPING[TARGET]))
-    .listen(PORT);
-
-console.log('Created server for: ' + TARGET + ', listening on port ' + PORT);
+http.createServer(app).listen(3000, () => {
+    console.log('Listening...');
+});

@@ -1,125 +1,47 @@
-var _ = require('lodash');
-var minimist = require('minimist');
-var chalk = require('chalk');
-var webpack = require('webpack');
+var path = require("path");
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
-var OpenBrowserWebpackPlugin = require('open-browser-webpack-plugin');
+var config = {
+  /*
+   * app.ts represents the entry point to your web application. Webpack will
+   * recursively go through every "require" statement in app.ts and
+   * efficiently build out the application's dependency tree.
+   */
+  entry: ["./src/main.tsx"],
 
-var DEFAULT_TARGET = 'BUILD';
+  /*
+   * The combination of path and filename tells Webpack what name to give to
+   * the final bundled JavaScript file and where to store this file.
+   */
+  output: {
+    path: path.resolve(__dirname, "build"),
+    filename: "bundle.js"
+  },
 
-var DEFAULT_PARAMS = {
-    resolve: {
-        extensions: ['', '.ts', '.tsx', '.js']
-    },
-    entry: {
-        main: './src/main.tsx'
-    },
-    output: {
-        publicPath: '',
-        filename: '[name].[chunkhash].js',
-        sourceMapFilename: '[name].[chunkhash].map'
-    },
-    externals: {
-        'auth0-lock': 'Auth0Lock'
-    },
-    module: {
-        loaders: [
-            {test: /\.tsx?$/, loader: 'react-hot!ts-loader?jsx=true', exclude: /(\.test.ts$|node_modules)/},
-            {test: /\.css$/, loader: 'style!css'},
-            {test: /\.tpl.html/, loader: 'html'},
-            {test: /\.(ico|png|jpg|gif|svg|eot|ttf|woff|woff2)(\?.+)?$/, loader: 'url?limit=50000'}
-        ]
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './src/index.html',
-            inject: 'body'
-        }),
-        new webpack.optimize.DedupePlugin()
-    ].concat(_bootswatchWorkaround()),
-    devServer: {
-        contentBase: 'dev/',
-        port: 8081
-    },
-    debug: true,
-    progress: true,
-    colors: true
+  /*
+   * resolve lets Webpack now in advance what file extensions you plan on
+   * "require"ing into the web application, and allows you to drop them
+   * in your code.
+   */
+  resolve: {
+    extensions: ["", ".ts", ".tsx", ".js"]
+  },
+
+  module: {
+    /*
+     * Each loader needs an associated Regex test that goes through each
+     * of the files you've included (or in this case, all files but the
+     * ones in the excluded directories) and finds all files that pass
+     * the test. Then it will apply the loader to that file. I haven't
+     * installed ts-loader yet, but will do that shortly.
+     */
+    loaders: [
+      {
+        test: /\.tsx?$/,
+        loader: "ts-loader",
+        exclude: /node_modules/
+      }
+    ]
+  }
 };
 
-var PARAMS_PER_TARGET = {
-
-    DEV: {
-        devtool: 'inline-source-map',
-        output: {
-            filename: '[name].js'
-        },
-        plugins: [
-            new OpenBrowserWebpackPlugin({ url: 'http://localhost:8081/' })
-        ]
-    },
-
-    BUILD: {
-        output: {
-            path: './build'
-        },
-        devtool: 'source-map',
-        plugins: [
-            new CleanWebpackPlugin(['build'])
-        ]
-    },
-
-    DIST: {
-        debug: false,
-        output: {
-            path: './dist'
-        },
-        plugins: [
-            new CleanWebpackPlugin(['dist']),
-            new webpack.optimize.UglifyJsPlugin()
-        ]
-    }
-
-};
-
-var target = _resolveBuildTarget(DEFAULT_TARGET);
-var params = _.merge(DEFAULT_PARAMS, PARAMS_PER_TARGET[target], _mergeArraysCustomizer);
-
-_printBuildInfo(target, params);
-
-module.exports = params;
-
-function _resolveBuildTarget(defaultTarget) {
-    var target = minimist(process.argv.slice(2)).TARGET;
-    if (!target) {
-        console.log('No build target provided, using default target instead\n\n');
-        target = defaultTarget;
-    }
-    return target;
-}
-
-function _printBuildInfo(target, params) {
-    console.log('\nStarting ' + chalk.bold.green('"' + target + '"') + ' build');
-    if (target === 'DEV') {
-        console.log('Dev server: ' + chalk.bold.yellow('http://localhost:' + params.devServer.port) + '\n\n');
-    } else {
-        console.log('\n\n');
-    }
-}
-
-function _mergeArraysCustomizer(a, b) {
-    if (_.isArray(a)) {
-        return a.concat(b);
-    }
-}
-
-function _bootswatchWorkaround() {
-	var extensions = ['eot', 'woff', 'woff2', 'ttf', 'svg'];
-	
-	return extensions.map(function(ext) {
-		var regexp = new RegExp('^\.\.\/fonts\/glyphicons-halflings-regular\.' + ext + '$');
-		var dest = 'bootswatch/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.' + ext;
-		return new webpack.NormalModuleReplacementPlugin(regexp, dest);
-	});
-}
+module.exports = config;
