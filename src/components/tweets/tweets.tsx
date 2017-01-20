@@ -1,7 +1,11 @@
 import * as React from 'react';
 import * as request from 'superagent';
 
-export default class Home extends React.Component<any, any> {
+import { GetDataFromServerTypes } from '../../actions/types';
+import * as Actions from '../../actions/tweetsActions';
+import TweetStore from '../../stores/tweetsStore';
+
+export default class Tweets extends React.Component<any, any> {
 
 	constructor(props) {
 		super(props);
@@ -11,22 +15,13 @@ export default class Home extends React.Component<any, any> {
 
 		e.preventDefault();
 
+		this.setState({ tweets: [] });
+
 		var toSend = {
 			'username': this.state.username
 		}
 
-		request
-			.post('/getTweets')
-			.send({ credentials: toSend })
-			.end(function(err, res) {
-
-				var tweetsData = res.body;
-
-				this.setState({ tweets: tweetsData });
-
-				console.log(tweetsData);
-
-			}.bind(this));
+		Actions.getTweets(toSend);
 	}
 
 	handleUsername(e) {
@@ -39,6 +34,12 @@ export default class Home extends React.Component<any, any> {
 
 	componentWillMount() {
 		this.state = { username: 'SrBachan', password: '', tweets: [] };
+		TweetStore.addChangeListener(GetDataFromServerTypes.GET_TWEETS, () => {
+
+			this.setState({
+				tweets: TweetStore.tweetsList
+			});
+		});
 	}
 
 	render() {
@@ -53,7 +54,7 @@ export default class Home extends React.Component<any, any> {
 						<button type="submit" className="btn btn-default" onClick={this.handleGo.bind(this)}>Get Tweets</button>
 					</form>
 				</div>
-				<br/>
+				<br />
 				<div className={"row"}>
 					{
 						this.state.tweets.map(function(item) {
