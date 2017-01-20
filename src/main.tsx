@@ -24,7 +24,7 @@ export default class Main extends React.Component<any, any> {
 						</div>
 					</div>
 				</nav>
-				<div className="container">
+				<div className="container-fluid">
 					{this.props.children}
 				</div>
 			</div>

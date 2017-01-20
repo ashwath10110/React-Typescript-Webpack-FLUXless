@@ -11,9 +11,7 @@ export default class Home extends React.Component<any, any> {
 
   render() {
     return (
-      <div className="container">
-        <Tweets> </Tweets>
-      </div>
+        <Tweets></Tweets>
     );
   }
 }
